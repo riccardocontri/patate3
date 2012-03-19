@@ -24,13 +24,15 @@ Background: movies have been added to database
 Scenario: restrict to movies with 'PG' or 'R' ratings
 
   # enter step(s) to check the 'PG' and 'R' checkboxes
-  When I check "ratings_PG"
-  And I check "ratings_R"
+  #Given I check "ratings_PG"
+  #And I check "ratings_R"
+  Given I check the following ratings: PG, R
 
   # enter step(s) to uncheck all other checkboxes
-  But I uncheck "ratings_G"
-  And I uncheck "ratings_PG-13"
-  And I uncheck "ratings_NC-17"
+  #But I uncheck "ratings_G"
+  #And I uncheck "ratings_PG-13"
+  #And I uncheck "ratings_NC-17"
+  But I uncheck the following ratings: G, PG-13, NC-17
 
   # enter step to "submit" the search form on the homepage
   When I press "ratings_submit"
