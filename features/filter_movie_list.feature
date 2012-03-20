@@ -22,37 +22,31 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
 
 Scenario: restrict to movies with 'PG' or 'R' ratings
-
-  # enter step(s) to check the 'PG' and 'R' checkboxes
-  #Given I check "ratings_PG"
-  #And I check "ratings_R"
   Given I check the following ratings: PG, R
-
-  # enter step(s) to uncheck all other checkboxes
-  #But I uncheck "ratings_G"
-  #And I uncheck "ratings_PG-13"
-  #And I uncheck "ratings_NC-17"
   But I uncheck the following ratings: G, PG-13, NC-17
 
-  # enter step to "submit" the search form on the homepage
   When I press "ratings_submit"
 
-  # enter step(s) to ensure that PG and R movies are visible
-  Then I should see "The Terminator"
-  And I should see "When Harry Met Sally"
-  And I should see "Amelie"
-  And I should see "The Incredibles"
-  And I should see "Raiders of the Lost Ark"
+  Then I should see these movies:
+  | The Terminator          |
+  | When Harry Met Sally    |
+  | Amelie                  |
+  | The Incredibles         |
+  | Raiders of the Lost Ark |
 
-  # enter step(s) to ensure that other movies are not visible
-  But I should not see "Aladdin"
-  And I should not see "The Help"
-  And I should not see "Chocolat"
-  And I should not see "2001: A Space Odyssey"
-  And I should not see "Chicken Run"
+  But I should not see these movies:
+  | Aladdin               |
+  | The Help              |
+  | Chocolat              |
+  | 2001: A Space Odyssey |
+  | Chicken Run           |
 
 Scenario: no ratings selected
-  # see assignment
+  Given I uncheck all ratings
+  When I press "ratings_submit"
+  Then I should see no movies
 
 Scenario: all ratings selected
-  # see assignment
+  Given I check all ratings
+  When I press "ratings_submit"
+  Then I should see all of the movies
